@@ -6,7 +6,7 @@ import pathlib
 
 TMP_FILE = "./out.jmx"
 RESULTS_DIR = "./results/"
-SLEEP_TIME_SEC = 4
+SLEEP_TIME_SEC = 30
 
 
 def main():
@@ -17,21 +17,22 @@ def main():
 def create_tests():
     tests = []
 
-    values = [("all-random", ALL_RANDOM),
-              ("path-random", PATH_RANDOM),
-              ("same-values", SAME_VALUES)]
+    values = [
+        ("all-random", ALL_RANDOM),
+        ("path-random", PATH_RANDOM),
+        ("same-values", SAME_VALUES)]
 
-    for (server, port) in [("130.255.39.16", 80), ("localhost", 3000)]:
-        for (rate, loops) in [(100, 100), (1000, 100), (100, 1000), (1000, 1000)]:
+    for (server, port) in [("localhost", 3000)]:
+        for (rate, loops) in [(1000, 200), (200, 1000)]:
             for (name, value) in values:
                 tests.append(
                     {"command": "clear", "server": server, "port": port})
-                for count in [1, 2, 3]:
+                for count in [1]:
                     tests.append({
                         "command":
                             "test",
                         "name":
-                            f"./{server}:{port}-{name}-r{rate}-l{loops}-{count}.csv",
+                            f"./new-{server}:{port}-{name}-r{rate}-l{loops}-{count}.csv",
                         "test":
                             test(
                                 thread_count=rate,

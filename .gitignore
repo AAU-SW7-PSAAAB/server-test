@@ -1,6 +1,7 @@
 jmeter.log
 out.jmx
 results/
+figures/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
